@@ -10,8 +10,8 @@ from matplotlib.pyplot import MultipleLocator
 plt.rcParams['font.family'] = 'SimHei'
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.size'] = 15
-path_pre = 'data1'
-for i in range(4, 6):
+path_pre = 'data2'
+for i in range(1, 6):
     data = pandas.read_csv(path_pre + '/' + 'mr' + str(i) + '.csv')
     co2 = pandas.read_csv(path_pre + '/' + 'CO2-' + str(i) + '.csv')
     data['newindex'] = np.arange(len(data)-1, -1, -1)
@@ -24,9 +24,9 @@ for i in range(4, 6):
 
     co2['Time'] = co2['Time'].astype('datetime64[ns]')
     if path_pre == 'data3':
-        co2['Consum'] = (co2['Value'] - 400) * 0.3 / 1000
+        co2['Consum'] = (co2['Value'] - 400) * 0.3 * 1.429 / 1000
     else:
-        co2['Consum'] = (co2['Value'] - 400) * (i *0.2 - 0.1) / 1000
+        co2['Consum'] = (co2['Value'] - 400) * (i *0.2 - 0.1) * 1.429 / 1000
 
     matplotlib.rcParams['xtick.direction'] = 'in'
     matplotlib.rcParams['ytick.direction'] = 'in'
@@ -65,10 +65,10 @@ for i in range(4, 6):
     handle2, label2 = ax1.get_legend_handles_labels()
     # ax1.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
     # ax1.xaxis.set_major_locator(mdates.HourLocator(interval=24))
-    ax1.set_ylabel("氧气消耗速率(g/min)")
-    ax1.set_ylim((0, 12))
-    y_major_locator=MultipleLocator(2)
-    ax1.yaxis.set_major_locator(y_major_locator)
+    ax1.set_ylabel("氧气消耗速率(μg/min)")
+    ax1.set_ylim((0, 17))
+    # y_major_locator=MultipleLocator(2)
+    # ax1.yaxis.set_major_locator(y_major_locator)
 
 
 

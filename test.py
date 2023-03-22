@@ -10,7 +10,7 @@ from matplotlib.pyplot import MultipleLocator
 plt.rcParams['font.family'] = 'SimHei'
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.size'] = 15
-path_pre = 'data2'
+path_pre = 'data3'
 for i in range(1, 6):
     data = pandas.read_csv(path_pre + '/' + 'mr' + str(i) + '.csv')
     co2 = pandas.read_csv(path_pre + '/' + 'CO2-' + str(i) + '.csv')
@@ -24,9 +24,9 @@ for i in range(1, 6):
 
     co2['Time'] = co2['Time'].astype('datetime64[ns]')
     if path_pre == 'data3':
-        co2['Consum'] = (co2['Value'] - 400) * 0.3 / 1000
+        co2['Consum'] = (co2['Value'] - 400) * 0.3 * 1.429 / 1000
     else:
-        co2['Consum'] = (co2['Value'] - 400) * (i *0.2 - 0.1) / 1000
+        co2['Consum'] = (co2['Value'] - 400) * (i *0.2 - 0.1) * 1.429 / 1000
 
     matplotlib.rcParams['xtick.direction'] = 'in'
     matplotlib.rcParams['ytick.direction'] = 'in'
@@ -46,27 +46,27 @@ for i in range(1, 6):
     #     return label
 
     fig, ax = plt.subplots(figsize=(10, 5))
-    # ax.plot(data['Time'][::60], data['Value1'][::60])
+    ax.plot(data['Time'][::], data['Average'][::], color='tab:blue')
     l1 = ax.errorbar(data['Time'][::], data['Average'][::],
-                     yerr=data['Std'][::],  label='温度')
+                     yerr=data['Std'][::],  label='温度', color='tab:blue')
     handle1, label1 = ax.get_legend_handles_labels()
     ax.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
     if path_pre == 'data2':
         ax.xaxis.set_major_locator(mdates.HourLocator(byhour=12))
     else:
         ax.xaxis.set_major_locator(mdates.HourLocator(byhour=22))
-    # ax.set_xticks([0, 1, 2, 3, 4])
+
     ax.set_ylim((0, 80))
     ax.set_ylabel('温度(℃)')
 
-    # ax1 = ax.twinx()
-    # l2 = ax1.plot(co2['Time'][::], co2['Consum']
-    #               [::], color='teal', label='氧气消耗速率')
-    # handle2, label2 = ax1.get_legend_handles_labels()
-    # # ax1.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
-    # # ax1.xaxis.set_major_locator(mdates.HourLocator(interval=24))
-    # ax1.set_ylabel("氧气消耗速率(g/min)")
-    # ax1.set_ylim((0, 20))
+    ax1 = ax.twinx()
+    l2 = ax1.plot(co2['Time'][::], co2['Consum']
+                  [::], color='teal', label='氧气消耗速率')
+    handle2, label2 = ax1.get_legend_handles_labels()
+    # ax1.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
+    # ax1.xaxis.set_major_locator(mdates.HourLocator(interval=24))
+    ax1.set_ylabel("氧气消耗速率(μg/min)")
+    ax1.set_ylim((0, 26))
     # y_major_locator=MultipleLocator(2)
     # ax1.yaxis.set_major_locator(y_major_locator)
 
@@ -88,7 +88,7 @@ for i in range(1, 6):
     # ax.legend(lns, labs, loc='upper left')
     # ax1.legend(loc='upper left')
 
-    fig.legend(loc="upper left", bbox_to_anchor=(
-        0, 1), bbox_transform=ax.transAxes)
+    fig.legend(loc="upper right", bbox_to_anchor=(
+        1, 1), bbox_transform=ax.transAxes)
     # plt.show()
     plt.savefig(path_pre + '/+' + str(i) + '.png')
