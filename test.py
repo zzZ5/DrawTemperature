@@ -10,7 +10,7 @@ from matplotlib.pyplot import MultipleLocator
 plt.rcParams['font.family'] = 'SimHei'
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.size'] = 15
-path_pre = 'data3'
+path_pre = 'data2'
 for i in range(1, 6):
     data = pandas.read_csv(path_pre + '/' + 'mr' + str(i) + '.csv')
     co2 = pandas.read_csv(path_pre + '/' + 'CO2-' + str(i) + '.csv')

@@ -9,8 +9,9 @@ from matplotlib.pyplot import MultipleLocator
 
 plt.rcParams['font.family'] = 'SimHei'
 plt.rcParams['axes.unicode_minus'] = False
+plt.rcParams.update({'font.size': 14})
 
-path_pre = 'data3'
+path_pre = 'data1'
 for i in range(1, 6):
     data = pandas.read_csv(path_pre + '/' + 'mr' + str(i) + '.csv')
     co2 = pandas.read_csv(path_pre + '/' + 'CO2-' + str(i) + '.csv')
@@ -24,9 +25,9 @@ for i in range(1, 6):
 
     co2['Time'] = co2['Time'].astype('datetime64[ns]')
     if path_pre == 'data3':
-        co2['Consum'] = (co2['Value'] - 400) * 300 
+        co2['Consum'] = (co2['Value'] - 400) * 30 
     else:
-        co2['Consum'] = (co2['Value'] - 400) * (i * 200 - 100)
+        co2['Consum'] = (co2['Value'] - 400) * (i * 20 - 10)
 
     matplotlib.rcParams['xtick.direction'] = 'in'
     matplotlib.rcParams['ytick.direction'] = 'in'
@@ -44,13 +45,13 @@ for i in range(1, 6):
     handle2, label2 = ax.get_legend_handles_labels()
     # ax.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
     # ax.xaxis.set_major_locator(mdates.HourLocator(interval=24))
-    ax.set_ylabel("CO2浓度(ppm)")
+    ax.set_ylabel("CO2浓度(ppm)", fontsize=16)
     # ax.set_ylim((0, 12000000))
     # y_major_locator = MultipleLocator(1000000)
     ax.set_ylim((0, 60000))
     # ax.yaxis.set_major_locator(y_major_locator)
 
-    ax.set_xlabel('时间(d)')
+    ax.set_xlabel('时间(d)', fontsize=16)
 
     if path_pre == 'data1':
         # plt.xlim((19290.91, 19298.11))
