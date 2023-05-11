@@ -25,7 +25,7 @@ for i in range(1, 6):
 
     co2['Time'] = co2['Time'].astype('datetime64[ns]')
     if path_pre == 'data3':
-        co2['Consum'] = (co2['Value'] - 400) * 30 
+        co2['Consum'] = (co2['Value'] - 400) * 30
     else:
         co2['Consum'] = (co2['Value'] - 400) * (i * 20 - 10)
 
