@@ -29,12 +29,16 @@ def myerrorbar(data, x, y, err, color, label=None, **kws):
 
 data = pandas.read_csv('data1/pH.csv')
 
-ax = sns.FacetGrid(data, row="row", col="col",
-                   hue="Treatment")
-
+sns.set(style="ticks", font_scale=1.5, rc={"lines.linewidth":2.5})
+# ax = sns.FacetGrid(data, row="row", col="col",hue="Treatment")
+g = sns.lineplot(
+    data=data, x="Time/d", y='pH', hue='Treatment', err_style="bars", errorbar='ci',style='Treatment', markers=True, err_kws={'capsize':5}
+)
+# g.set_xticklabels(['0','1','3','5','7'])
 # ax = sns.lineplot(x="Time/d", y='pH', hue='Treatment', style='Treatment',
 #                   markers=True, data=data)
-ax.map_dataframe(myerrorbar, x="Time/d", y="pH", err='err')
-ax.set_titles(col_template="{col_name}", row_template="{row_name}")
-ax.add_legend()
+# ax.map_dataframe(myerrorbar, x="Time/d", y="pH", err='err')
+# ax.map(sns.lineplot, x="Time/d", y='pH', hue='Treatment', style='Treatment', markers=True, data=data)
+# ax.set_titles(col_template="{col_name}", row_template="{row_name}")
+# ax.add_legend()
 plt.show()
