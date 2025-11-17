@@ -10,7 +10,7 @@ from matplotlib.pyplot import MultipleLocator
 plt.rcParams['font.family'] = 'SimHei'
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.size'] = 15
-path_pre = 'data2'
+path_pre = 'data3'
 for i in range(1, 6):
     data = pandas.read_csv(path_pre + '/' + 'mr' + str(i) + '.csv')
     co2 = pandas.read_csv(path_pre + '/' + 'CO2-' + str(i) + '.csv')
@@ -46,26 +46,27 @@ for i in range(1, 6):
     #     return label
 
     fig, ax = plt.subplots(figsize=(10, 5))
-    ax.plot(data['Time'][::60], data['Value1'][::60], color='tab:blue')
+    ax.plot(data['Time'][::60], data['Value1'][::60], color='teal')
     l1 = ax.errorbar(data['Time'][::], data['Average'][::],
-                     yerr=data['Std'][::],  label='温度', color='tab:blue')
+                     yerr=data['Std'][::],  label='温度', color='teal')
     handle1, label1 = ax.get_legend_handles_labels()
     ax.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
     if path_pre == 'data2':
         ax.xaxis.set_major_locator(mdates.HourLocator(byhour=12))
     else:
         ax.xaxis.set_major_locator(mdates.HourLocator(byhour=22))
-    # # ax.set_xticks([0, 1, 2, 3, 4])
+    # ax.set_xticks([0, 1, 2, 3, 4])
     ax.set_ylim((0, 80))
+    ax.set_xlabel('时间（d）')
     ax.set_ylabel('温度(℃)')
 
     ax1 = ax.twinx()
     l2 = ax1.plot(co2['Time'][::], co2['Consum']
-                  [::], color='teal', label='氧气消耗速率')
+                  [::], color='orange', label='氧气消耗速率')
     handle2, label2 = ax1.get_legend_handles_labels()
     # ax1.xaxis.set_major_formatter(plt.FuncFormatter(format_func))
     # ax1.xaxis.set_major_locator(mdates.HourLocator(interval=24))
-    ax1.set_ylabel("氧气消耗速率(μg/min)")
+    ax1.set_ylabel("氧气消耗速率(mg/min)")
     ax1.set_ylim((0, 2))
     # y_major_locator=MultipleLocator(2)
     # ax1.yaxis.set_major_locator(y_major_locator)
